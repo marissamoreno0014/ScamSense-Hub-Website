@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose a Game</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(to bottom right, #f5c9d1, #f1aeca);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #f6dbe2;
+      padding: 21px 24px;
+      font-size: 2.7rem;
+      font-weight: bold;
+      border-bottom: 2px solid #ccc;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      gap: 36px;
+    }
+
+    .btn {
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 2rem;
+      padding: 19px 33px;
+      border-radius: 16px;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      text-align: center;
+      min-width: 280px;
+      text-align: center;
+    }
+
+    .btn-purple {
+      background-color: #5f4bd9;
+      color: white;
+    }
+
+    .btn-purple:hover {
+      background-color: #4a39b0;
+    }
+
+    .btn-gray {
+      background-color: #aeb0bf;
+      color: #000;
+    }
+
+    .btn-gray:hover {
+      background-color: #9699a8;
+    }
+
+    footer {
+      padding: 21px;
+      font-size: 1.8rem;
+      color: #222;
+      background-color: #f5f5f5;
+      border-top: 2px solid #ccc;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Choose a Game</header>
+
+  <main>
+    <a href="spotthefish.html" target="_blank" class="btn btn-purple">Spot The Fish</a>
+    <a href="bingo.html" target="_blank" class="btn btn-purple">Bingo</a>
+    <a href="realorscam.html" target="_blank" class="btn btn-purple">Real or Scam?</a>
+    <a href="index.html" class="btn btn-gray">← Back</a>
+  </main>
+
+  <footer>Game Zone</footer>
+
+</body>
+</html>

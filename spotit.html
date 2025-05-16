@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ScamSense Hub</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .header {
+      background-color: #f1ceda;
+      height: 60px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 30;
+    }
+
+    .header-title {
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    .screen {
+      height: calc(100vh - 60px);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 20px;
+      z-index: 10;
+      overflow: visible;
+    }
+    .email-page7 {
+  pointer-events: none !important;
+}
+.email-page9 {
+  pointer-events: none !important;
+}
+.email-page11 {
+  pointer-events: none !important;
+}
+.email-page13 {
+  pointer-events: none !important;
+}
+.email-page14,
+.email-page15,
+.email-page16 {
+  display: none !important;
+}
+
+    .active {
+      display: flex;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-top: 5px;
+    }
+
+    .text {
+      font-size: 18px;
+      margin: 20px 0;
+      max-width: 600px;
+    }
+
+    .highlight {
+      font-weight: bold;
+    }
+
+    .btn {
+      background-color: #9889ac;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      position: absolute;
+      z-index: 31;
+      bottom: 90px;
+    }
+
+    .btn-left {
+      left: 20px;
+    }
+
+    .btn-right {
+      right: 20px;
+    }
+
+    .scroll-icon {
+      width: 100px;
+      margin-top: 240px;
+      cursor: pointer;
+    }
+
+    .questy-bubble-container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 20px;
+      max-width: 80%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 20;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .questy {
+      max-width: 250px;
+      height: auto;
+      flex-shrink: 0;
+      order: 0;
+    }
+
+    .bubble {
+      max-width: 60%;
+      position: relative;
+      margin-top: 0;
+      border-radius: 30px;
+      padding: 25px;
+      font-size: 1.2em;
+      background: #fff;
+      border: 3px solid #000;
+      box-shadow: 5px 5px 0 #000;
+      order: 1;
+    }
+
+    .bubble::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -20px;
+      transform: translateY(-50%);
+      border-width: 20px 20px 20px 0;
+      border-style: solid;
+      border-color: transparent #fff transparent transparent;
+    }
+
+    .next-btn {
+      color: #7c4ee4;
+      background: none;
+      border: none;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    img.icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* Email Background Styling */
+    .email-background {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 60px);
+      display: none;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 40px;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    #screen2.active ~ .email-background,
+    #screen3.active ~ .email-background,
+    #screen4.active ~ .email-background,
+    #screen5.active ~ .email-background {
+      display: flex;
+    }
+
+    .fake-email {
+      background-color: #f2f2f2;
+      border: 2px solid #999;
+      padding: 0;
+      width: 80%;
+      max-width: 700px;
+      font-size: 16px;
+      color: #333;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .email-section {
+      padding: 15px 20px;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .email-section:last-child {
+      border-bottom: none;
+    }
+
+    .email-section strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .email-body p {
+      margin-bottom: 10px;
+    }
+
+    .fake-link {
+      color: blue;
+      text-decoration: underline;
+    }
+
+    .email-overlay {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 60px);
+      background-color: rgba(128, 128, 128, 0.5);
+      pointer-events: none;
+      z-index: 15;
+      display: none;
+    }
+
+    #screen2.active ~ .email-overlay,
+    #screen3.active ~ .email-overlay,
+    #screen4.active ~ .email-overlay,
+    #screen5.active ~ .email-overlay,
+    #screen14.active ~ .email-overlay,
+    #screen15.active~ .email-overlay,
+    #screen16.active~.email-overlay {
+      display: block;
+    }
+
+    .page5-bubble-container {
+  position: absolute;
+  bottom: 45px; /* above buttons */
+  left: 50%;
+  transform-origin: center bottom;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 600px;
+  z-index: 25;
+  transform: translateX(-50%) scale(0.75);
+}
+
+.page5-bubble {
+  border-radius: 30px;
+  padding: 20px 30px;
+  font-size: 1.2em;
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 5px 5px 0 #000;
+  position: relative;
+  flex: 1;
+}
+
+.page5-bubble::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 20px 20px 20px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+  box-shadow: none;
+  filter: drop-shadow(0 1px 0 #000);
+}
+
+.page5-questy {
+  max-width: 150px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.page5-next-btn {
+  color: #7c4ee4;
+  background: none;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 10px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+/* Show default email only on screens 2–5 */
+#screen2.active ~ .email-background,
+#screen3.active ~ .email-background,
+#screen4.active ~ .email-background,
+#screen5.active ~ .email-background {
+  display: flex;
+  pointer-events: none;
+}
+
+/* Hide email-background for screens 6–9 */
+#screen6.active ~ .email-background,
+#screen7.active ~ .email-background,
+#screen8.active ~ .email-background,
+#screen9.active ~ .email-background,
+#screen10.active ~ .email-background,
+#screen11.active ~ .email-background,
+#screen12.active ~ .email-background,
+#screen13.active ~ .email-background{
+  display: none;
+}
+
+/* Show screen-specific email */
+#screen6.active ~ .email-page6,
+#screen7.active ~ .email-page7,
+#screen8.active ~ .email-page8,
+#screen9.active ~ .email-page9,
+#screen10.active ~ .email-page10,
+#screen11.active ~ .email-page11,
+#screen12.active ~ .email-page12,
+#screen13.active ~ .email-page13 {
+  display: flex;
+}
+
+/* Hide grey overlay on screens 6–9 */
+#screen6.active ~ .email-overlay,
+#screen7.active ~ .email-overlay,
+#screen8.active ~ .email-overlay,
+#screen9.active ~ .email-overlay,
+#screen10.active ~ .email-overlay
+#screen11.active ~ .email-overlay,
+#screen12.active ~ .email-overlay,
+#screen13.active ~ .email-overlay{
+  display: none;
+}
+
+
+/* Show correct emails on correct screens */
+#screen6.active ~ .email-page6,
+#screen7.active ~ .email-page7,
+#screen8.active ~ .email-page8,
+#screen9.active ~ .email-page9,
+#screen10.active ~ .email-page10,
+#screen11.active ~ .email-page11,
+#screen12.active ~ .email-page12,
+#screen13.active ~ .email-page13{
+  display: flex;
+  pointer-events: auto;
+}
+
+
+
+/* Special email container for screen 6 */
+.email-page6 {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#screen6.active ~ .email-page6 {
+  display: flex;
+}
+
+
+#screen6.active ~ .email-background,
+#screen6.active ~ .email-overlay {
+  display: none;
+}
+/*page7*/
+.email-page7 {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#screen7.active ~ .email-page7 {
+  display: flex;
+}
+
+
+#screen7.active ~ .email-background,
+#screen7.active ~ .email-overlay {
+  display: none;
+}
+/*page8*/
+/* Special email container for screen 6 */
+.email-page8 {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#screen8.active ~ .email-page8 {
+  display: flex;
+}
+
+
+#screen8.active ~ .email-background,
+#screen8.active ~ .email-overlay {
+  display: none;
+}
+/* 9*/
+.email-page9 {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#screen9.active ~ .email-page9 {
+  display: flex;
+}
+
+
+#screen9.active ~ .email-background,
+#screen9.active ~ .email-overlay {
+  display: none;
+}
+/* 10*/
+.email-page10 {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#screen10.active ~ .email-page10 {
+  display: flex;
+}
+
+
+#screen10.active ~ .email-background,
+#screen10.active ~ .email-overlay {
+  display: none;
+}
+/* 11*/
+.email-page11 {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#screen11.active ~ .email-page11 {
+  display: flex;
+}
+
+
+#screen11.active ~ .email-background,
+#screen11.active ~ .email-overlay {
+  display: none;
+}
+/* 12*/
+.email-page12 {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#screen12.active ~ .email-page12 {
+  display: flex;
+}
+
+
+#screen12.active ~ .email-background,
+#screen12.active ~ .email-overlay {
+  display: none;
+}
+/* 13*/
+.email-page13 {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+#screen13.active ~ .email-page13 {
+  display: flex;
+}
+
+
+#screen13.active ~ .email-background,
+#screen13.active ~ .email-overlay {
+  display: none;
+}
+  </style>
+</head>
+<body>
+  
+
+  <!-- Header -->
+  <div class="header">
+    <img src="hamburger.png" class="icon" alt="menu" />
+    <a href="index.html" class="header-title" style="text-decoration: none; color: inherit;">
+      ScamSense Hub
+    </a>
+    
+    <img src="magnifier.png" class="icon" alt="search" />
+  </div>
+<!-- Screen 1 -->
+<div class="screen active" id="screen1">
+  <div class="title">Safety Quest 1</div>
+  <div class="subtitle">Stage 1: The Debrief</div>
+
+  <!-- Spacer to move intro text down -->
+  <div style="height: 60px;"></div>
+
+  <div class="intro-text">
+    On this quest, you will learn to <span class="highlight">find the clues</span><br>
+    that indicate each <span class="highlight">email is fake</span>.<br><br>
+    To complete the quest,<br>you must <span class="highlight">find every clue!</span>
+  </div>
+
+  <img src="scroll.png" class="scroll-icon" onclick="goToScreen(2)" alt="Scroll Down" />
+  <button class="btn btn-left" onclick="window.location.href='index.html'">Back</button>
+  <button class="btn btn-right" onclick="goToScreen(17)">Skip Debrief</button>
+</div>
+
+
+  <!-- Screen 2 -->
+  <div class="screen" id="screen2">
+    <div class="questy-bubble-container">
+      <img src="questy.jpg" class="questy" />
+      <div class="bubble">
+        Hi! I’m <span class="highlight">Questy</span>, your map guide, here to help you on your way...
+        <br><button class="next-btn" onclick="goToScreen(3)">Next ►</button>
+      </div>
+    </div>
+    <button class="btn btn-left" onclick="goToScreen(1)">Back</button>
+    <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+  </div>
+
+  <!-- Screen 3 -->
+  <div class="screen" id="screen3">
+    <div class="questy-bubble-container">
+      <img src="questy.jpg" class="questy" />
+      <div class="bubble">
+        This looks like a classic <span class="highlight">“Spot It”</span> -- just find the email’s <span class="highlight">suspicious elements</span>.<br>
+        Don’t worry! I’ll be here to help.
+        <br><button class="next-btn" onclick="goToScreen(4)">Next ►</button>
+      </div>
+    </div>
+    <button class="btn btn-left" onclick="goToScreen(2)">Back</button>
+    <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+  </div>
+
+  <!-- Screen 4 -->
+  <div class="screen" id="screen4">
+    <div class="questy-bubble-container">
+      <img src="questy.jpg" class="questy" />
+      <div class="bubble">
+        Don’t worry! I’ll be here to help.
+        <br><br>
+        <button class="next-btn" onclick="goToScreen(5)">Next ►</button>
+      </div>
+    </div>
+    <button class="btn btn-left" onclick="goToScreen(3)">Back</button>
+    <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+  </div>
+
+  <!-- Screen 5 -->
+  <div class="screen" id="screen5">
+    <button class="btn btn-left" onclick="goToScreen(4)">Back</button>
+    <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+    <div class="page5-bubble-container" aria-label="Questy hint and avatar">
+        <img src="questy.jpg" class="page5-questy" alt="Questy avatar" />
+        <div class="page5-bubble">
+          <p>This email contains <span class="highlight">many clues</span> that 
+            it may be fake...</p>
+          <button class="page5-next-btn" onclick="goToScreen(6)">Next ►</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<!-- Screen 6 -->
+<div class="screen" id="screen6">
+    <div class="page5-bubble-container">
+      <img src="questy.jpg" class="page5-questy" />
+      <div class="page5-bubble">
+        To start, try clicking on the <strong>sender’s email.</strong></span>
+      </div>
+    </div>
+    <button class="btn btn-left" onclick="goToScreen(5)">Back</button>
+    <button class="btn btn-right"onclick="goToScreen(17)" >Skip Debrief</button>
+  </div>
+  <!-- Screen 7 -->
+<!-- Screen 7 -->
+<div class="screen" id="screen7">
+  <button class="btn btn-left" onclick="goToScreen(6)">Back</button>
+  <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+
+  <div class="page5-bubble-container">
+    <img src="questy.jpg" class="page5-questy" alt="Questy avatar" />
+    <div class="page5-bubble">
+      <p>Cool! The sender’s email will <strong>almost always</strong> give them away first.</p>
+      <button class="page5-next-btn" onclick="goToScreen(8)">Next ►</button>
+    </div>
+  </div>
+  
+</div>
+
+
+
+    <!-- Screen 8 -->
+<div class="screen" id="screen8">
+    <div class="page5-bubble-container">
+      <img src="questy.jpg" class="page5-questy" />
+      <div class="page5-bubble">
+        Come to think of it, that <strong>subject line</strong> seems suspicious. You should click it.
+      </div>
+    </div>
+    <button class="btn btn-left" onclick="goToScreen(7)">Back</button>
+    <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+  </div>
+    <!-- Screen 9 -->
+<div class="screen" id="screen9">
+    <div class="page5-bubble-container">
+      <img src="questy.jpg" class="page5-questy" />
+      <div class="page5-bubble">
+        Wow! <strong>Re-reading</strong> the email’s subject line is always a good idea.
+        <br><button class="page5-next-btn" onclick="goToScreen(10)">Next ►</button>
+
+      </div>
+    </div>
+    <button class="btn btn-left" onclick="goToScreen(8)">Back</button>
+    <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+  </div>
+      <!-- Screen 10 -->
+<div class="screen" id="screen10">
+  <div class="page5-bubble-container">
+    <img src="questy.jpg" class="page5-questy" />
+    <div class="page5-bubble">
+      Hmm... something seems off with the <strong>salutation</strong>. We should investigate it.
+    </div>
+  </div>
+  <button class="btn btn-left" onclick="goToScreen(9)">Back</button>
+  <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+</div>
+        <!-- Screen 11 -->
+<div class="screen" id="screen11">
+  <div class="page5-bubble-container">
+    <img src="questy.jpg" class="page5-questy" />
+    <div class="page5-bubble">
+      Seems like <strong>double checking</strong> the <strong>salutation</strong> is a smart move!
+      <br><button class="page5-next-btn" onclick="goToScreen(12)">Next ►</button>
+
+    </div>
+  </div>
+  <button class="btn btn-left" onclick="goToScreen(10)">Back</button>
+  <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+</div>
+          <!-- Screen 12 -->
+<div class="screen" id="screen12">
+  <div class="page5-bubble-container">
+    <img src="questy.jpg" class="page5-questy" />
+    <div class="page5-bubble">
+      Hey! I wonder what’s up with that link... Let’s take a closer look.
+
+    </div>
+  </div>
+  <button class="btn btn-left" onclick="goToScreen(11)">Back</button>
+  <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+</div>
+        <!-- Screen 13 -->
+        <div class="screen" id="screen13">
+          <div class="page5-bubble-container">
+            <img src="questy.jpg" class="page5-questy" />
+            <div class="page5-bubble">
+              Wow, good thing we double checked that link before clicking on it.
+              <br><button class="page5-next-btn" onclick="goToScreen(14)">Next ►</button>
+        
+            </div>
+          </div>
+          <button class="btn btn-left" onclick="goToScreen(12)">Back</button>
+          <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+        </div>
+    <!-- Screen 14 -->
+    <div class="screen" id="screen14">
+      <div class="questy-bubble-container">
+        <img src="questy.jpg" class="questy" />
+        <div class="bubble">
+          Great job! That’s all for the  tutorial. Before we move on, here are some more <strong>clues</strong> to look for:
+          <br><button class="next-btn" onclick="goToScreen(15)">Next ►</button>
+        </div>
+      </div>
+      <button class="btn btn-left" onclick="goToScreen(13)">Back</button>
+      <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+    </div>
+        <!-- Screen 15 -->
+<div class="screen" id="screen15">
+  <div class="questy-bubble-container">
+    <img src="questy.jpg" class="questy" />
+    <div class="bubble">
+      <ul style="text-align: left; padding-left: 20px; font-size: 1.1em; line-height: 1.6;">
+        <li>Grammar <strong>mistakes</strong></li>
+        <li><strong>Generic</strong> action buttons (click here, log in now, etc.)</li>
+        <li>Requests for <strong>personal information</strong></li>
+        <li><strong>Threats</strong></li>
+      </ul>
+      <button class="next-btn" onclick="goToScreen(16)">Next ►</button>
+    </div>
+  </div>
+
+  <button class="btn btn-left" onclick="goToScreen(14)">Back</button>
+  <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+</div>
+
+        <!-- Screen 16 -->
+        <div class="screen" id="screen16">
+          <div class="questy-bubble-container">
+            <img src="questy.jpg" class="questy" />
+            <div class="bubble">
+              Okay! I think you’re ready to face <strong>Email Land!</strong>
+              <br><button class="next-btn" onclick="goToScreen(17)">Next ►</button>
+            </div>
+          </div>
+          <button class="btn btn-left" onclick="goToScreen(15)">Back</button>
+          <button class="btn btn-right"onclick="goToScreen(17)">Skip Debrief</button>
+        </div>
+        <!--make holder page for next section-->
+        <!-- Screen 17 -->
+<div class="screen" id="screen17">
+  <div class="questy-bubble-container">
+    <img src="questy.jpg" class="questy" />
+    <div class="bubble">
+      Sorry! This part of the quest is <strong>still in development.</strong>
+      <br>Please check back later.
+    </div>
+  </div>
+  <button class="btn btn-left" onclick="goToScreen(16)">Back</button>
+</div>
+
+  <!-- Fake Email Background -->
+  <div class="email-background">
+    <div class="fake-email">
+      <div class="email-section">
+        <strong>Subject:</strong>
+        Urgent: Suspicious Activity Detected on Your Account
+      </div>
+      <div class="email-section">
+        <strong>From:</strong>
+        <span class="fake-link" id="senderEmail" onclick="goToScreen(7)">support@wells-fargo-security.com</span>
+      </div>      
+      <div class="email-section email-body">
+        <p>Dear Valued Customer,</p>
+        <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+        <p><span class="fake-link">🔗 Verify Your Account Now</span></p>
+        <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+        <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+        <p>Thank you for choosing Wells Fargo.<br>
+        Sincerely,<br>
+        Customer Security Team<br>
+        Wells Fargo</p>
+      </div>
+    </div>
+  </div>
+<!-- Fake Email for Page 6 -->
+<div class="email-page6" aria-label="Full fake Wells Fargo email with clickable links">
+    <div class="fake-email" style="pointer-events:auto;">
+      <div class="email-section">
+        <strong>Subject:</strong>
+        Urgent: Suspicious Activity Detected on Your Account
+      </div>
+      <div class="email-section">
+        <strong>From:</strong>
+        <span class="fake-link" id="senderEmail" onclick="goToScreen(7)" role="link" tabindex="0" 
+          onkeypress="if(event.key === 'Enter') goToScreen(7);">support@wells-fargo-security.com</span>
+      </div>
+      <div class="email-section email-body">
+        <p>Dear Valued Customer,</p>
+        <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+        <p>
+          <span class="fake-link" role="link" tabindex="0" 
+            onclick="alert('Fake link clicked');" 
+            onkeypress="if(event.key === 'Enter') alert('Fake link clicked');">
+            🔗 Verify Your Account Now
+          </span>
+        </p>
+        <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+        <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+        <p>Thank you for choosing Wells Fargo.<br>
+           Sincerely,<br>
+           Customer Security Team<br>
+           Wells Fargo
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Fake Email for Page 8 -->
+<div class="email-page8" aria-label="Full fake Wells Fargo email with clickable links">
+    <div class="fake-email" style="pointer-events:auto;">
+        <div class="email-section">
+            <strong>Subject:</strong>
+            <span class="fake-link" id="emailSubject" onclick="goToScreen(9)" role="link" tabindex="0"
+              onkeypress="if(event.key === 'Enter') goToScreen(9);">
+              Urgent: Suspicious Activity Detected on Your Account
+            </span>
+          </div>
+          
+      <div class="email-section">
+        <strong>From:</strong>
+        support@wells-fargo-security.com
+      </div>
+      <div class="email-section email-body">
+        <p>Dear Valued Customer,</p>
+        <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+        <p>
+          <span class="fake-link" role="link" tabindex="0" 
+            onclick="alert('Fake link clicked');" 
+            onkeypress="if(event.key === 'Enter') alert('Fake link clicked');">
+            🔗 Verify Your Account Now
+          </span>
+        </p>
+        <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+        <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+        <p>Thank you for choosing Wells Fargo.<br>
+           Sincerely,<br>
+           Customer Security Team<br>
+           Wells Fargo
+        </p>
+      </div>
+    </div>
+  </div>
+    <!-- Fake Email for Page 10 -->
+<div class="email-page10" aria-label="Full fake Wells Fargo email with clickable links">
+  <div class="fake-email" style="pointer-events:auto;">
+      <div class="email-section">
+          <strong>Subject:</strong>
+            Urgent: Suspicious Activity Detected on Your Account
+          </span>
+        </div>
+        
+    <div class="email-section">
+      <strong>From:</strong>
+      support@wells-fargo-security.com
+    </div>
+    <div class="email-section email-body">
+      <span class="fake-link" id="emailSubject" onclick="goToScreen(11)" role="link" tabindex="0"
+      onkeypress="if(event.key === 'Enter') goToScreen(11);">
+      <p>Dear Valued Customer,</p>
+    </span>
+      <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+      <p>
+        <span class="fake-link" role="link" tabindex="0" 
+          onclick="alert('Fake link clicked');" 
+          onkeypress="if(event.key === 'Enter') alert('Fake link clicked');">
+          🔗 Verify Your Account Now
+        </span>
+      </p>
+      <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+      <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+      <p>Thank you for choosing Wells Fargo.<br>
+         Sincerely,<br>
+         Customer Security Team<br>
+         Wells Fargo
+      </p>
+    </div>
+  </div>
+</div>
+   <!-- Fake Email for Page 12 -->
+   <div class="email-page12" aria-label="Full fake Wells Fargo email with clickable links">
+    <div class="fake-email" style="pointer-events:auto;">
+        <div class="email-section">
+            <strong>Subject:</strong>
+              Urgent: Suspicious Activity Detected on Your Account
+            </span>
+          </div>
+          
+      <div class="email-section">
+        <strong>From:</strong>
+        support@wells-fargo-security.com
+      </div>
+      <div class="email-section email-body">
+
+        <p>Dear Valued Customer,</p>
+        <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+        <p>
+          <span class="fake-link" id="emailSubject" onclick="goToScreen(13)" role="link" tabindex="0"
+          onkeypress="if(event.key === 'Enter') goToScreen(13);">
+            🔗 Verify Your Account Now
+          </span>
+        </p>
+        <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+        <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+        <p>Thank you for choosing Wells Fargo.<br>
+           Sincerely,<br>
+           Customer Security Team<br>
+           Wells Fargo
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Fake Email for Page 7 (no links) -->
+<!-- Fake Email for Page 7 (with overlay bubble) -->
+<div class="email-page7" aria-label="Full fake Wells Fargo email with pointer bubble" style="pointer-events:auto;">
+  <div class="fake-email">
+    <div class="email-section">
+      <strong>Subject:</strong>
+      Urgent: Suspicious Activity Detected on Your Account
+    </div>
+
+    <div class="email-section" style="position: relative;">
+      <strong>From:</strong>
+      <span id="fakeSender" class="fake-link">support@wells-fargo-security.com</span>
+    
+      <!-- Pointer Bubble BELOW the email -->
+      <div style="
+        position: absolute;
+        top: 75px;
+        left: 0;
+        width: 280px;
+        background: #fff;
+        border: 3px solid #000;
+        box-shadow: 5px 5px 0 #000;
+        border-radius: 25px;
+        padding: 15px;
+        font-size: 0.95em;
+        z-index: 100;
+        text-align: center;
+      ">
+        <div style="
+          position: absolute;
+          top: -20px;
+          left: 30px;
+          width: 0;
+          height: 0;
+          border-left: 15px solid transparent;
+          border-right: 15px solid transparent;
+          border-bottom: 20px solid #fff;
+          filter: drop-shadow(0 -1px 0 #000);
+        "></div>
+        This sender is <strong>fake!</strong><br>
+        Banks only have one domain (after the @). If you’re not sure, always double check with your bank.
+      </div>
+    </div>
+    
+
+    <div class="email-section email-body">
+      <p>Dear Valued Customer,</p>
+      <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+      <p>
+        <span class="fake-link" role="link" tabindex="0">
+          🔗 Verify Your Account Now
+        </span>
+      </p>
+      <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+      <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+      <p>Thank you for choosing Wells Fargo.<br>
+         Sincerely,<br>
+         Customer Security Team<br>
+         Wells Fargo
+      </p>
+    </div>
+  </div>
+</div>
+
+  
+  <!-- Fake Email for Page 9 (no links) -->
+  <div class="email-page9" aria-label="Full fake Wells Fargo email without clickable links">
+    <div class="fake-email" style="pointer-events:auto;">
+      <div class="email-section" style="position: relative;">
+        <strong>Subject:</strong>
+        <span class="fake-link">Urgent: Suspicious Activity Detected on Your Account</span>
+      
+        <!-- Pointer Bubble BELOW the subject line -->
+        <div style="
+          position: absolute;
+          top: 75px;
+          left: 0;
+          width: 300px;
+          background: #fff;
+          border: 3px solid #000;
+          box-shadow: 5px 5px 0 #000;
+          border-radius: 25px;
+          padding: 15px;
+          font-size: 0.95em;
+          z-index: 100;
+          text-align: center;
+        ">
+          <div style="
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 20px solid #fff;
+            filter: drop-shadow(0 -1px 0 #000);
+          "></div>
+          The language of this <strong>subject line</strong> is <strong>urgent</strong> and <strong>threatening!</strong>A real bank will not use this kind of messaging.
+        </div>
+      </div>
+      
+      
+      <div class="email-section">
+        <strong>From:</strong>
+        support@wells-fargo-security.com
+      </div>
+      
+      <div class="email-section email-body">
+        <p>Dear Valued Customer,</p>
+        <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+        <p>          <span class="fake-link" role="link" tabindex="0">
+          🔗 Verify Your Account Now
+        </span>
+      </p>
+        <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+        <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+        <p>Thank you for choosing Wells Fargo.<br>
+           Sincerely,<br>
+           Customer Security Team<br>
+           Wells Fargo
+        </p>
+      </div>
+    </div>
+  </div>
+<!-- Fake Email for Page 11 (no links) -->
+<div class="email-page11" aria-label="Full fake Wells Fargo email without clickable links">
+  <div class="fake-email" style="pointer-events:auto;">
+
+    <!-- Subject -->
+    <div class="email-section">
+      <strong>Subject:</strong>
+      Urgent: Suspicious Activity Detected on Your Account
+    </div>
+
+    <!-- From -->
+    <div class="email-section">
+      <strong>From:</strong>
+      support@wells-fargo-security.com
+    </div>
+
+    <!-- Email Body with Salutation Bubble -->
+    <div class="email-section email-body">
+      <div style="position: relative;">
+        <span class="fake-link">Dear Valued Customer,</span>
+
+        <!-- Pointer Bubble Below Salutation -->
+        <div style="
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 320px;
+          background: #fff;
+          border: 3px solid #000;
+          box-shadow: 5px 5px 0 #000;
+          border-radius: 25px;
+          padding: 15px;
+          font-size: 0.95em;
+          z-index: 100;
+          text-align: center;
+        ">
+          <div style="
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 20px solid #fff;
+            filter: drop-shadow(0 -1px 0 #000);
+          "></div>
+Your bank will use your <strong>real name!</strong>
+Double check to see <strong>to whom the email is addressed.</strong>
+        </div>
+      </div>
+
+      <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+
+      <p>
+        <span class="fake-link" role="link" tabindex="0">
+          🔗 Verify Your Account Now
+        </span>
+      </p>
+
+      <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+      <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+      <p>Thank you for choosing Wells Fargo.<br>
+        Sincerely,<br>
+        Customer Security Team<br>
+        Wells Fargo
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Fake Email for Page 13 (no links) -->
+<div class="email-page13" aria-label="Full fake Wells Fargo email without clickable links">
+  <div class="fake-email" style="pointer-events:auto;">
+
+    <!-- Subject -->
+    <div class="email-section">
+      <strong>Subject:</strong>
+      Urgent: Suspicious Activity Detected on Your Account
+    </div>
+
+    <!-- From -->
+    <div class="email-section">
+      <strong>From:</strong>
+      support@wells-fargo-security.com
+    </div>
+
+    <!-- Body with bubble under the link line -->
+    <div class="email-section email-body">
+      <p>Dear Valued Customer,</p>
+      <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+
+      <!-- Bubble appears below this call to action -->
+      <div style="position: relative; margin-bottom: 20px;">
+        <span class="fake-link">🔗 Verify Your Account Now</span>
+
+        <!-- Bubble below the link -->
+        <div style="
+          position: absolute;
+          top: 45px;
+          left: 0;
+          width: 320px;
+          background: #fff;
+          border: 3px solid #000;
+          box-shadow: 5px 5px 0 #000;
+          border-radius: 25px;
+          padding: 15px;
+          font-size: 0.95em;
+          z-index: 100;
+          text-align: center;
+        ">
+          <div style="
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 20px solid #fff;
+            filter: drop-shadow(0 -1px 0 #000);
+          "></div>
+          When hovering as well, make sure the URL is the same as the bank’s.
+        </div>
+      </div>
+
+      <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+      <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+      <p>Thank you for choosing Wells Fargo.<br>
+         Sincerely,<br>
+         Customer Security Team<br>
+         Wells Fargo
+      </p>
+    </div>
+
+  </div>
+</div>
+
+                <!-- Fake Email for Page 14 (no links) -->
+                <div class="email-page14" aria-label="Full fake Wells Fargo email without clickable links">
+                  <div class="fake-email" style="pointer-events:auto;">
+                    <div class="email-section">
+                      <strong>Subject:</strong>
+                      Urgent: Suspicious Activity Detected on Your Account
+                    </div>
+                    
+                    <div class="email-section">
+                      <strong>From:</strong>
+                      support@wells-fargo-security.com
+                    </div>
+                    
+                    <div class="email-section email-body">
+                      <p>Dear Valued Customer,</p>
+                      <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+                      <p>          <span class="fake-link" role="link" tabindex="0">
+                        🔗 Verify Your Account Now
+                      </span>
+                    </p>
+                      <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+                      <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+                      <p>Thank you for choosing Wells Fargo.<br>
+                         Sincerely,<br>
+                         Customer Security Team<br>
+                         Wells Fargo
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                        <!-- Fake Email for Page 15 (no links) -->
+        <div class="email-page15" aria-label="Full fake Wells Fargo email without clickable links">
+          <div class="fake-email" style="pointer-events:auto;">
+            <div class="email-section">
+              <strong>Subject:</strong>
+              Urgent: Suspicious Activity Detected on Your Account
+            </div>
+            
+            <div class="email-section">
+              <strong>From:</strong>
+              support@wells-fargo-security.com
+            </div>
+            
+            <div class="email-section email-body">
+              <p>Dear Valued Customer,</p>
+              <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+              <p>          <span class="fake-link" role="link" tabindex="0">
+                🔗 Verify Your Account Now
+              </span>
+            </p>
+              <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+              <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+              <p>Thank you for choosing Wells Fargo.<br>
+                 Sincerely,<br>
+                 Customer Security Team<br>
+                 Wells Fargo
+              </p>
+            </div>
+          </div>
+        </div>
+                <!-- Fake Email for Page 16 (no links) -->
+                <div class="email-page16" aria-label="Full fake Wells Fargo email without clickable links">
+                  <div class="fake-email" style="pointer-events:auto;">
+                    <div class="email-section">
+                      <strong>Subject:</strong>
+                      Urgent: Suspicious Activity Detected on Your Account
+                    </div>
+                    
+                    <div class="email-section">
+                      <strong>From:</strong>
+                      support@wells-fargo-security.com
+                    </div>
+                    
+                    <div class="email-section email-body">
+                      <p>Dear Valued Customer,</p>
+                      <p>We have detected unauthorized access to your account and have temporarily suspended your online banking services for your protection. To restore access and verify your identity, please click the secure link below and log in immediately:</p>
+                      <p>          <span class="fake-link" role="link" tabindex="0">
+                        🔗 Verify Your Account Now
+                      </span>
+                    </p>
+                      <p>If you do not complete this verification within 24 hours, your account may be permanently locked.</p>
+                      <p>For your security, please do not share this email with anyone. If you have any questions, contact our support team at (fake phone number).</p>
+                      <p>Thank you for choosing Wells Fargo.<br>
+                         Sincerely,<br>
+                         Customer Security Team<br>
+                         Wells Fargo
+                      </p>
+                    </div>
+                  </div>
+                </div>
+  
+  
+  
+  
+  <!-- Grey Overlay -->
+  <div class="email-overlay"></div>
+
+  <script>
+function goToScreen(screenNumber) {
+  const allScreens = document.querySelectorAll('.screen');
+  const allEmails = document.querySelectorAll('[class^="email-page"]');
+
+  allScreens.forEach(screen => screen.classList.remove('active'));
+  allEmails.forEach(email => email.style.display = 'none');
+
+  const currentScreen = document.getElementById(`screen${screenNumber}`);
+  currentScreen.classList.add('active');
+
+  const emailToShow = document.querySelector(`.email-page${screenNumber}`);
+  if (emailToShow) {
+    emailToShow.style.display = 'flex';
+  }
+  }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScamSense Hub</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(to bottom right, #f5c9d1, #f1aeca);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f6dbe2;
+      padding: 21px 24px;
+      font-weight: bold;
+      font-size: 2.7rem;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .icon {
+      width: 38px;
+      height: 38px;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 37px 24px;
+      position: relative;
+    }
+
+    .stat-text {
+      font-size: 3rem;
+      line-height: 1.6;
+      max-width: 800px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      font-size: 4.2rem;
+    }
+
+    .support-text {
+      font-weight: bold;
+      font-size: 2.4rem;
+      margin-top: 38px;
+    }
+
+    .questy {
+      position: absolute;
+      right: 30px;
+      top: 25%;
+      width: 180px;
+      height: auto;
+    }
+
+    .buttons {
+      margin-top: 45px;
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 2rem;
+      padding: 19px 33px;
+      border-radius: 16px;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .btn-purple {
+      background-color: #5f4bd9;
+      color: white;
+    }
+
+    .btn-purple:hover {
+      background-color: #4a39b0;
+    }
+
+    .btn-gray {
+      background-color: #aeb0bf;
+      color: #000;
+    }
+
+    .btn-gray:hover {
+      background-color: #9699a8;
+    }
+
+    footer {
+      padding: 21px;
+      font-size: 1.8rem;
+      color: #222;
+      background-color: #f6dbe2;
+      border-top: 2px solid #ccc;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .questy {
+        display: none;
+      }
+
+      .stat-text {
+        font-size: 2rem;
+      }
+
+      .highlight {
+        font-size: 2.7rem;
+      }
+
+      .support-text {
+        font-size: 1.5rem;
+      }
+
+      .btn {
+        font-size: 1.5rem;
+        padding: 14px 22px;
+      }
+
+      footer {
+        font-size: 1.5rem;
+      }
+
+      header {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="hamburger.png" alt="Menu" class="icon" />
+    <div>ScamSense Hub</div>
+    <img src="magnifier.png" alt="Search" class="icon" />
+  </header>
+
+  <main>
+    <img src="questy.jpg" alt="Questy Character" class="questy" />
+
+    <div class="stat-text">
+      <span class="highlight">1 in 3</span> (33%) U.S. adults have experienced
+      <b>financial fraud</b> or a <b>scam</b> in the 12 months since January 2024.
+    </div>
+
+    <div class="support-text">
+      We are a resource to help prevent you from being a victim.
+    </div>
+
+    <div class="buttons">
+      <a href="spotit.html" class="btn btn-purple">Access our Safety Quests</a>
+      <a href="games.html" class="btn btn-gray">Games</a>
+    </div>
+  </main>
+
+  <footer>
+    About Us
+  </footer>
+
+</body>
+</html>

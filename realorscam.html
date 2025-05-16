@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Real or Scam?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #a00;
+    }
+    #real-or-scam {
+      margin-top: 30px;
+      padding: 20px;
+      border: 2px solid #333;
+      background: #fff;
+      display: inline-block;
+    }
+    #real-or-scam button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #ros-feedback {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Real or Scam?</h1>
+
+<div id="real-or-scam">
+  <p id="ros-question">Loading...</p>
+  <button onclick="checkAnswer(true)">Real</button>
+  <button onclick="checkAnswer(false)">Scam</button>
+  <p id="ros-feedback"></p>
+</div>
+
+<audio id="ding" src="ding.mp3"></audio>
+<audio id="error" src="wrong.mp3"></audio>
+
+<script>
+const questions = [
+  {
+    question: "You get a text saying 'Click here to claim your $500 prize.'",
+    isReal: false,
+    explanation: "That’s a scam. Never click links from unknown texts."
+  },
+  {
+    question: "Your bank emails you and asks you to log in via a link to verify suspicious activity.",
+    isReal: false,
+    explanation: "Banks never ask for login details through email links. Go directly to their website."
+  },
+  {
+    question: "A charity asks for donations after a natural disaster, and you recognize the name.",
+    isReal: true,
+    explanation: "As long as it’s a reputable and verified charity, this is real. Still, confirm their website yourself."
+  },
+  {
+    question: "You receive a phone call saying you've been selected for a government grant you never applied for.",
+    isReal: false,
+    explanation: "That’s a common government grant scam. Grants aren’t awarded out of the blue."
+  },
+  {
+    question: "You get an email with your boss’s name asking you to urgently buy gift cards.",
+    isReal: false,
+    explanation: "Scammers often impersonate bosses. Always verify such requests via a call or internal chat."
+  },
+  {
+    question: "A Facebook friend messages you about a government assistance program where they got $10,000.",
+    isReal: false,
+    explanation: "This is likely a hacked account promoting a scam."
+  },
+  {
+    question: "A pop-up on your computer says 'Virus detected! Call this number immediately!'",
+    isReal: false,
+    explanation: "Fake virus alerts are a common tech support scam. Don’t call the number."
+  },
+  {
+    question: "A job posting asks you to pay for a background check before getting hired.",
+    isReal: false,
+    explanation: "Legitimate employers don’t charge candidates for background checks upfront."
+  },
+  {
+    question: "Your utility company emails you about an overdue bill, and the email address matches their official domain.",
+    isReal: true,
+    explanation: "As long as the domain is verified and expected, this could be real. Always double-check independently."
+  },
+  {
+    question: "A romantic partner you met online asks you to wire money to help with an emergency abroad.",
+    isReal: false,
+    explanation: "This is a classic romance scam. Never send money to someone you’ve never met in person."
+  }
+];
+
+
+let currentQuestion = 0;
+const rosQuestion = document.getElementById('ros-question');
+const rosFeedback = document.getElementById('ros-feedback');
+
+function loadNextQuestion() {
+  if (currentQuestion < questions.length) {
+    rosQuestion.textContent = questions[currentQuestion].question;
+  } else {
+    rosQuestion.textContent = "You've finished all the Real or Scam questions!";
+  }
+}
+
+function checkAnswer(isReal) {
+  const question = questions[currentQuestion];
+  if (!question) return;
+  if (isReal === question.isReal) {
+    rosFeedback.textContent = "Correct! " + question.explanation;
+    document.getElementById('ding').play();
+  } else {
+    rosFeedback.textContent = "Oops! " + question.explanation;
+    document.getElementById('error').play();
+  }
+  currentQuestion++;
+  loadNextQuestion();
+}
+
+window.onload = loadNextQuestion;
+</script>
+
+</body>
+</html>
